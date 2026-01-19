@@ -4,6 +4,7 @@ import {
   Outlet,
   Scripts,
   createRootRoute,
+  useLocation,
 } from '@tanstack/react-router'
 import appCss from '../styles.css?url'
 import Header from '@/components/Header'
@@ -41,6 +42,7 @@ export const Route = createRootRoute({
 function RootLayout() {
   const [session, setSession] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const location = useLocation()
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -70,13 +72,13 @@ function RootLayout() {
     )
   }
 
-  if (!session && window.location.pathname !== '/login') {
+  if (!session && location.pathname !== '/login') {
     return <Navigate to="/login" />
   }
 
   return (
     <>
-      {/* <Header /> */}
+      {/* <div>Hello index</div> */}
       <Outlet />
       <Toaster position="top-right" />
     </>

@@ -26,12 +26,21 @@ function RouteComponent() {
       </div>
       <h1 className="font-bold text-3xl mb-10">Your Current Sessions</h1>
 
-      <div className="multipage-form-body">
+      <div className="form-body">
         {/* New session button */}
         <Button
           onClick={() => {
             const sessionId = createSession()
-            navigate({ to: '/select', search: { sessionId: sessionId } })
+            navigate({
+              to: '/select_text',
+              search: {
+                sessionId: sessionId,
+                textAction: undefined,
+                authorAction: undefined,
+                textId: undefined,
+                authorId: undefined,
+              },
+            })
           }}
           className="w-full gap-2"
         >
@@ -68,8 +77,14 @@ function RouteComponent() {
                     size="sm"
                     onClick={() =>
                       navigate({
-                        to: '/select',
-                        search: { sessionId: session.id },
+                        to: '/select_text',
+                        search: {
+                          sessionId: session.id,
+                          textAction: session.action_text,
+                          authorAction: session.action_author,
+                          textId: session.textId ?? undefined,
+                          authorId: session.authorId ?? undefined,
+                        },
                       })
                     }
                   >

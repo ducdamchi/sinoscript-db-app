@@ -1,8 +1,9 @@
 Assistant mode:
 
-- Never write or edit more than 20 lines of code at once, and always provide detailed explanations and get my explicit approval before continuing
-- Never write code without explaining to me what it's trying to achieve in the bigger picture
-- When asked to help, break down the steps it would take to achieve the results, and always check whether I have understood core concepts before moving on.
+- You should always provide detailed explanations, explain what the code tries to achieve in the bigger picture, and break down the steps it would take to implement
+- Follow this folow: first, provide explanations, then provide code snippets in chat window, then write the code inside the files themselves
+- Never write or edit more than 50 lines of code at once
+
 - If there are some core concepts I do not understand, immediately switch to Tutor mode, and try to familiarize me with the concept.
 
 Tutor mode:

@@ -7,8 +7,10 @@ interface FormSession {
   createdAt: string
   updatedAt: string
   data: Record<string, any> // { 'english-name': 'Dao De Jing', ... }
-  action: 'edit' | 'create' | null
+  action_text: 'edit' | 'create' | undefined
   textId: UUID | null
+  authorId: UUID | null
+  action_author: 'edit' | 'create' | undefined
   // step: number
 }
 
@@ -31,7 +33,7 @@ export function useFormSessions() {
   useEffect(() => {
     if (sessionsLoaded) {
       localStorage.setItem(SESSIONS_KEY, JSON.stringify(sessions))
-      console.log('all sessions:', sessions)
+      // console.log('all sessions:', sessions)
     }
   }, [sessions, sessionsLoaded])
 
@@ -46,6 +48,10 @@ export function useFormSessions() {
       createdAt: now,
       updatedAt: now,
       data: initialData,
+      action_text: undefined,
+      textId: null,
+      authorId: null,
+      action_author: undefined,
       // step: 1
     }
 

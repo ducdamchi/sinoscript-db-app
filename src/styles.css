@@ -138,7 +138,15 @@ code {
 }
 
 @layer components {
-  .multipage-form-body {
-    @apply flex flex-col gap-10 w-[80%] max-w-[35rem] min-w-[20rem] pb-30;
+  .form-body {
+    @apply flex flex-col gap-10 w-[80%] max-w-[35rem] min-w-[20rem] pb-10;
+  }
+
+  .form-wrapper {
+    @apply min-h-screen flex flex-col items-center gap-5;
+  }
+
+  .form-title {
+    @apply font-bold text-3xl;
   }
 }

@@ -10,26 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SessionsRouteImport } from './routes/sessions'
-import { Route as SelectRouteImport } from './routes/select'
 import { Route as LoginRouteImport } from './routes/login'
-import { Route as AddRouteImport } from './routes/add'
+import { Route as FormRouteRouteImport } from './routes/_form/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as DemoStartServerFuncsRouteImport } from './routes/demo/start.server-funcs'
-import { Route as DemoStartApiRequestRouteImport } from './routes/demo/start.api-request'
-import { Route as DemoApiNamesRouteImport } from './routes/demo/api.names'
-import { Route as DemoStartSsrIndexRouteImport } from './routes/demo/start.ssr.index'
-import { Route as DemoStartSsrSpaModeRouteImport } from './routes/demo/start.ssr.spa-mode'
-import { Route as DemoStartSsrFullSsrRouteImport } from './routes/demo/start.ssr.full-ssr'
-import { Route as DemoStartSsrDataOnlyRouteImport } from './routes/demo/start.ssr.data-only'
+import { Route as FormUploadRouteImport } from './routes/_form/upload'
+import { Route as FormText_infoRouteImport } from './routes/_form/text_info'
+import { Route as FormSelect_textRouteImport } from './routes/_form/select_text'
+import { Route as FormSelect_authorRouteImport } from './routes/_form/select_author'
+import { Route as FormAuthor_infoRouteImport } from './routes/_form/author_info'
 
 const SessionsRoute = SessionsRouteImport.update({
   id: '/sessions',
   path: '/sessions',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SelectRoute = SelectRouteImport.update({
-  id: '/select',
-  path: '/select',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -37,9 +29,8 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AddRoute = AddRouteImport.update({
-  id: '/add',
-  path: '/add',
+const FormRouteRoute = FormRouteRouteImport.update({
+  id: '/_form',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -47,143 +38,103 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DemoStartServerFuncsRoute = DemoStartServerFuncsRouteImport.update({
-  id: '/demo/start/server-funcs',
-  path: '/demo/start/server-funcs',
-  getParentRoute: () => rootRouteImport,
+const FormUploadRoute = FormUploadRouteImport.update({
+  id: '/upload',
+  path: '/upload',
+  getParentRoute: () => FormRouteRoute,
 } as any)
-const DemoStartApiRequestRoute = DemoStartApiRequestRouteImport.update({
-  id: '/demo/start/api-request',
-  path: '/demo/start/api-request',
-  getParentRoute: () => rootRouteImport,
+const FormText_infoRoute = FormText_infoRouteImport.update({
+  id: '/text_info',
+  path: '/text_info',
+  getParentRoute: () => FormRouteRoute,
 } as any)
-const DemoApiNamesRoute = DemoApiNamesRouteImport.update({
-  id: '/demo/api/names',
-  path: '/demo/api/names',
-  getParentRoute: () => rootRouteImport,
+const FormSelect_textRoute = FormSelect_textRouteImport.update({
+  id: '/select_text',
+  path: '/select_text',
+  getParentRoute: () => FormRouteRoute,
 } as any)
-const DemoStartSsrIndexRoute = DemoStartSsrIndexRouteImport.update({
-  id: '/demo/start/ssr/',
-  path: '/demo/start/ssr/',
-  getParentRoute: () => rootRouteImport,
+const FormSelect_authorRoute = FormSelect_authorRouteImport.update({
+  id: '/select_author',
+  path: '/select_author',
+  getParentRoute: () => FormRouteRoute,
 } as any)
-const DemoStartSsrSpaModeRoute = DemoStartSsrSpaModeRouteImport.update({
-  id: '/demo/start/ssr/spa-mode',
-  path: '/demo/start/ssr/spa-mode',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoStartSsrFullSsrRoute = DemoStartSsrFullSsrRouteImport.update({
-  id: '/demo/start/ssr/full-ssr',
-  path: '/demo/start/ssr/full-ssr',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoStartSsrDataOnlyRoute = DemoStartSsrDataOnlyRouteImport.update({
-  id: '/demo/start/ssr/data-only',
-  path: '/demo/start/ssr/data-only',
-  getParentRoute: () => rootRouteImport,
+const FormAuthor_infoRoute = FormAuthor_infoRouteImport.update({
+  id: '/author_info',
+  path: '/author_info',
+  getParentRoute: () => FormRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/add': typeof AddRoute
   '/login': typeof LoginRoute
-  '/select': typeof SelectRoute
   '/sessions': typeof SessionsRoute
-  '/demo/api/names': typeof DemoApiNamesRoute
-  '/demo/start/api-request': typeof DemoStartApiRequestRoute
-  '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
-  '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
-  '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
-  '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
-  '/demo/start/ssr': typeof DemoStartSsrIndexRoute
+  '/author_info': typeof FormAuthor_infoRoute
+  '/select_author': typeof FormSelect_authorRoute
+  '/select_text': typeof FormSelect_textRoute
+  '/text_info': typeof FormText_infoRoute
+  '/upload': typeof FormUploadRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/add': typeof AddRoute
   '/login': typeof LoginRoute
-  '/select': typeof SelectRoute
   '/sessions': typeof SessionsRoute
-  '/demo/api/names': typeof DemoApiNamesRoute
-  '/demo/start/api-request': typeof DemoStartApiRequestRoute
-  '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
-  '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
-  '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
-  '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
-  '/demo/start/ssr': typeof DemoStartSsrIndexRoute
+  '/author_info': typeof FormAuthor_infoRoute
+  '/select_author': typeof FormSelect_authorRoute
+  '/select_text': typeof FormSelect_textRoute
+  '/text_info': typeof FormText_infoRoute
+  '/upload': typeof FormUploadRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/add': typeof AddRoute
+  '/_form': typeof FormRouteRouteWithChildren
   '/login': typeof LoginRoute
-  '/select': typeof SelectRoute
   '/sessions': typeof SessionsRoute
-  '/demo/api/names': typeof DemoApiNamesRoute
-  '/demo/start/api-request': typeof DemoStartApiRequestRoute
-  '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
-  '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
-  '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
-  '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
-  '/demo/start/ssr/': typeof DemoStartSsrIndexRoute
+  '/_form/author_info': typeof FormAuthor_infoRoute
+  '/_form/select_author': typeof FormSelect_authorRoute
+  '/_form/select_text': typeof FormSelect_textRoute
+  '/_form/text_info': typeof FormText_infoRoute
+  '/_form/upload': typeof FormUploadRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/add'
     | '/login'
-    | '/select'
     | '/sessions'
-    | '/demo/api/names'
-    | '/demo/start/api-request'
-    | '/demo/start/server-funcs'
-    | '/demo/start/ssr/data-only'
-    | '/demo/start/ssr/full-ssr'
-    | '/demo/start/ssr/spa-mode'
-    | '/demo/start/ssr'
+    | '/author_info'
+    | '/select_author'
+    | '/select_text'
+    | '/text_info'
+    | '/upload'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/add'
     | '/login'
-    | '/select'
     | '/sessions'
-    | '/demo/api/names'
-    | '/demo/start/api-request'
-    | '/demo/start/server-funcs'
-    | '/demo/start/ssr/data-only'
-    | '/demo/start/ssr/full-ssr'
-    | '/demo/start/ssr/spa-mode'
-    | '/demo/start/ssr'
+    | '/author_info'
+    | '/select_author'
+    | '/select_text'
+    | '/text_info'
+    | '/upload'
   id:
     | '__root__'
     | '/'
-    | '/add'
+    | '/_form'
     | '/login'
-    | '/select'
     | '/sessions'
-    | '/demo/api/names'
-    | '/demo/start/api-request'
-    | '/demo/start/server-funcs'
-    | '/demo/start/ssr/data-only'
-    | '/demo/start/ssr/full-ssr'
-    | '/demo/start/ssr/spa-mode'
-    | '/demo/start/ssr/'
+    | '/_form/author_info'
+    | '/_form/select_author'
+    | '/_form/select_text'
+    | '/_form/text_info'
+    | '/_form/upload'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AddRoute: typeof AddRoute
+  FormRouteRoute: typeof FormRouteRouteWithChildren
   LoginRoute: typeof LoginRoute
-  SelectRoute: typeof SelectRoute
   SessionsRoute: typeof SessionsRoute
-  DemoApiNamesRoute: typeof DemoApiNamesRoute
-  DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
-  DemoStartServerFuncsRoute: typeof DemoStartServerFuncsRoute
-  DemoStartSsrDataOnlyRoute: typeof DemoStartSsrDataOnlyRoute
-  DemoStartSsrFullSsrRoute: typeof DemoStartSsrFullSsrRoute
-  DemoStartSsrSpaModeRoute: typeof DemoStartSsrSpaModeRoute
-  DemoStartSsrIndexRoute: typeof DemoStartSsrIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -195,13 +146,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SessionsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/select': {
-      id: '/select'
-      path: '/select'
-      fullPath: '/select'
-      preLoaderRoute: typeof SelectRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -209,11 +153,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/add': {
-      id: '/add'
-      path: '/add'
-      fullPath: '/add'
-      preLoaderRoute: typeof AddRouteImport
+    '/_form': {
+      id: '/_form'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof FormRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -223,71 +167,69 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/demo/start/server-funcs': {
-      id: '/demo/start/server-funcs'
-      path: '/demo/start/server-funcs'
-      fullPath: '/demo/start/server-funcs'
-      preLoaderRoute: typeof DemoStartServerFuncsRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_form/upload': {
+      id: '/_form/upload'
+      path: '/upload'
+      fullPath: '/upload'
+      preLoaderRoute: typeof FormUploadRouteImport
+      parentRoute: typeof FormRouteRoute
     }
-    '/demo/start/api-request': {
-      id: '/demo/start/api-request'
-      path: '/demo/start/api-request'
-      fullPath: '/demo/start/api-request'
-      preLoaderRoute: typeof DemoStartApiRequestRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_form/text_info': {
+      id: '/_form/text_info'
+      path: '/text_info'
+      fullPath: '/text_info'
+      preLoaderRoute: typeof FormText_infoRouteImport
+      parentRoute: typeof FormRouteRoute
     }
-    '/demo/api/names': {
-      id: '/demo/api/names'
-      path: '/demo/api/names'
-      fullPath: '/demo/api/names'
-      preLoaderRoute: typeof DemoApiNamesRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_form/select_text': {
+      id: '/_form/select_text'
+      path: '/select_text'
+      fullPath: '/select_text'
+      preLoaderRoute: typeof FormSelect_textRouteImport
+      parentRoute: typeof FormRouteRoute
     }
-    '/demo/start/ssr/': {
-      id: '/demo/start/ssr/'
-      path: '/demo/start/ssr'
-      fullPath: '/demo/start/ssr'
-      preLoaderRoute: typeof DemoStartSsrIndexRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_form/select_author': {
+      id: '/_form/select_author'
+      path: '/select_author'
+      fullPath: '/select_author'
+      preLoaderRoute: typeof FormSelect_authorRouteImport
+      parentRoute: typeof FormRouteRoute
     }
-    '/demo/start/ssr/spa-mode': {
-      id: '/demo/start/ssr/spa-mode'
-      path: '/demo/start/ssr/spa-mode'
-      fullPath: '/demo/start/ssr/spa-mode'
-      preLoaderRoute: typeof DemoStartSsrSpaModeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/start/ssr/full-ssr': {
-      id: '/demo/start/ssr/full-ssr'
-      path: '/demo/start/ssr/full-ssr'
-      fullPath: '/demo/start/ssr/full-ssr'
-      preLoaderRoute: typeof DemoStartSsrFullSsrRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/start/ssr/data-only': {
-      id: '/demo/start/ssr/data-only'
-      path: '/demo/start/ssr/data-only'
-      fullPath: '/demo/start/ssr/data-only'
-      preLoaderRoute: typeof DemoStartSsrDataOnlyRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_form/author_info': {
+      id: '/_form/author_info'
+      path: '/author_info'
+      fullPath: '/author_info'
+      preLoaderRoute: typeof FormAuthor_infoRouteImport
+      parentRoute: typeof FormRouteRoute
     }
   }
 }
 
+interface FormRouteRouteChildren {
+  FormAuthor_infoRoute: typeof FormAuthor_infoRoute
+  FormSelect_authorRoute: typeof FormSelect_authorRoute
+  FormSelect_textRoute: typeof FormSelect_textRoute
+  FormText_infoRoute: typeof FormText_infoRoute
+  FormUploadRoute: typeof FormUploadRoute
+}
+
+const FormRouteRouteChildren: FormRouteRouteChildren = {
+  FormAuthor_infoRoute: FormAuthor_infoRoute,
+  FormSelect_authorRoute: FormSelect_authorRoute,
+  FormSelect_textRoute: FormSelect_textRoute,
+  FormText_infoRoute: FormText_infoRoute,
+  FormUploadRoute: FormUploadRoute,
+}
+
+const FormRouteRouteWithChildren = FormRouteRoute._addFileChildren(
+  FormRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AddRoute: AddRoute,
+  FormRouteRoute: FormRouteRouteWithChildren,
   LoginRoute: LoginRoute,
-  SelectRoute: SelectRoute,
   SessionsRoute: SessionsRoute,
-  DemoApiNamesRoute: DemoApiNamesRoute,
-  DemoStartApiRequestRoute: DemoStartApiRequestRoute,
-  DemoStartServerFuncsRoute: DemoStartServerFuncsRoute,
-  DemoStartSsrDataOnlyRoute: DemoStartSsrDataOnlyRoute,
-  DemoStartSsrFullSsrRoute: DemoStartSsrFullSsrRoute,
-  DemoStartSsrSpaModeRoute: DemoStartSsrSpaModeRoute,
-  DemoStartSsrIndexRoute: DemoStartSsrIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

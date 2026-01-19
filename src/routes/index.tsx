@@ -1,11 +1,11 @@
-import { createFileRoute, Navigate, useNavigate } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { supabase } from '../utils/supabase-client'
-import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 
 export const Route = createFileRoute('/')({ component: App })
 
 function App() {
+  console.log('Index route rendering')
   const navigate = useNavigate()
   const logOut = async () => {
     await supabase.auth.signOut()
