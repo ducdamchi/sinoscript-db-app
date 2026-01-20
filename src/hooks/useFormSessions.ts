@@ -8,9 +8,10 @@ interface FormSession {
   updatedAt: string
   data: Record<string, any> // { 'english-name': 'Dao De Jing', ... }
   action_text: 'edit' | 'create' | undefined
-  textId: UUID | null
-  authorId: UUID | null
+  textId: UUID | undefined
+  authorId: UUID | undefined
   action_author: 'edit' | 'create' | undefined
+  region: string | undefined
   // step: number
 }
 
@@ -49,9 +50,10 @@ export function useFormSessions() {
       updatedAt: now,
       data: initialData,
       action_text: undefined,
-      textId: null,
-      authorId: null,
+      textId: undefined,
+      authorId: undefined,
       action_author: undefined,
+      region: undefined,
       // step: 1
     }
 
@@ -95,12 +97,32 @@ export function useFormSessions() {
     return sessions.find((session) => session.id === id)
   }
 
+  const clearSessionData = (id: string) => {
+    setSessions((prev) =>
+      prev.map((session) =>
+        session.id === id
+          ? {
+              ...session,
+              data: {},
+              action_text: undefined,
+              textId: undefined,
+              authorId: undefined,
+              region: undefined,
+              action_author: undefined,
+              updatedAt: new Date().toISOString(),
+            }
+          : session,
+      ),
+    )
+  }
+
   return {
     sessions,
     sessionsLoaded,
     createSession,
     updateSession,
     updateSessionData,
+    clearSessionData, // Add to return object
     deleteSession,
     getSession,
   }

@@ -11,10 +11,10 @@ import {
 } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import FormNav from '@/components/FormNav'
 import { supabase } from '@/utils/supabase-client'
 import { Button } from '@/components/ui/button'
-import { CloudBackup, RotateCcw } from 'lucide-react'
+import FormNav from '@/components/FormNav'
+import { CustomFieldHeading } from '@/components/CustomFieldHeading'
 
 export const Route = createFileRoute('/_form/text_info')({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -87,9 +87,9 @@ function RouteComponent() {
       setWritingSystem(textData.writing_system || '')
       setEnglishName(textData.name?.english || '')
       setOriginalName(textData.name?.original || '')
-      setDescription(textData.description_content || '')
-      setDescriptionSource(textData.description_source || '')
-      setDescriptionLink(textData.description_link || '')
+      setDescription(textData.description?.content || '')
+      setDescriptionSource(textData.description?.source_name || '')
+      setDescriptionLink(textData.description?.source_link || '')
       setNumSections(textData.num_sections || '')
       setNumChapters(textData.num_chapters || '')
       setCreationDate(textData.creation_date || '')
@@ -116,25 +116,25 @@ function RouteComponent() {
     }
   }, [textAction, textId])
 
-  useEffect(() => {
-    console.log('textData: ', textData)
-  }, [textData])
+  // useEffect(() => {
+  //   console.log('textData: ', textData)
+  // }, [textData])
 
   return (
     <div className="form-wrapper">
       <FormNav
         backLink="/select_text"
         backTitle="Select Text"
-        nextLink="/text_info"
-        nextTitle="Text Info"
+        nextLink="/select_author"
+        nextTitle="Author Info"
       />
       {/* Page Title */}
       <div className="flex flex-col items-center gap-2">
         <h1 className="form-title">Text Info</h1>
         {textAction && textAction === 'edit' ? (
-          <h2>Editing Existing Entry</h2>
+          <h2>You're currently viewing / editing an existing entry</h2>
         ) : (
-          <h2>Adding New Entry</h2>
+          <h2>You're currently adding a new entry</h2>
         )}
       </div>
 
@@ -143,27 +143,25 @@ function RouteComponent() {
         <FieldGroup>
           {/* language system */}
           <FieldGroup className="border-1 p-7 rounded-md">
-            <FieldLegend>1. Language System</FieldLegend>
-            <FieldDescription>
-              The language system behind the text
-            </FieldDescription>
+            <CustomFieldHeading
+              heading="1. Language System"
+              headingType="legend"
+              textAction={textAction}
+              onReset={() => {
+                setOriginalLanguage(textData?.original_language)
+                setWritingSystem(textData?.writing_system)
+                updateSessionData(sessionId, {
+                  original_language: textData?.original_language,
+                  writing_system: textData?.writing_system,
+                })
+              }}
+            />
             <FieldGroup>
               <Field>
-                <div className="flex justify-between">
-                  <FieldLabel>Original language</FieldLabel>
-                  {textAction === 'edit' && (
-                    <Button
-                      variant="ghost"
-                      className="bg-transparent"
-                      title="Reset to original"
-                      onClick={() => {
-                        setOriginalLanguage(textData?.original_language)
-                      }}
-                    >
-                      <RotateCcw />
-                    </Button>
-                  )}
-                </div>
+                <FieldDescription>
+                  The language system behind the text
+                </FieldDescription>
+                <FieldLabel>Original language</FieldLabel>
                 <Input
                   id="original-language"
                   value={originalLanguage}
@@ -181,21 +179,7 @@ function RouteComponent() {
                 </FieldDescription>
               </Field>
               <Field>
-                <div className="flex justify-between">
-                  <FieldLabel>Writing system</FieldLabel>
-                  {textAction === 'edit' && (
-                    <Button
-                      variant="ghost"
-                      className="bg-transparent"
-                      title="Reset to original"
-                      onClick={() => {
-                        setWritingSystem(textData?.writing_system)
-                      }}
-                    >
-                      <RotateCcw />
-                    </Button>
-                  )}
-                </div>
+                <FieldLabel>Writing system</FieldLabel>
                 <Input
                   id="writing-system"
                   value={writingSystem}
@@ -217,27 +201,25 @@ function RouteComponent() {
 
           {/* text name */}
           <FieldGroup className="border-1 p-7 rounded-md">
-            <FieldLegend>2. Text Name</FieldLegend>
+            <CustomFieldHeading
+              heading="2. Text Name"
+              headingType="legend"
+              textAction={textAction}
+              onReset={() => {
+                setEnglishName(textData?.name?.english)
+                setOriginalName(textData?.name?.original)
+                updateSessionData(sessionId, {
+                  text_name_english: textData?.name?.english,
+                  text_name_original: textData?.name?.original,
+                })
+              }}
+            />
             <FieldDescription>
               Different names associated with the text
             </FieldDescription>
             <FieldGroup>
               <Field>
-                <div className="flex justify-between">
-                  <FieldLabel>English name</FieldLabel>
-                  {textAction === 'edit' && (
-                    <Button
-                      variant="ghost"
-                      className="bg-transparent"
-                      title="Reset to original"
-                      onClick={() => {
-                        setEnglishName(textData?.name?.english)
-                      }}
-                    >
-                      <RotateCcw />
-                    </Button>
-                  )}
-                </div>
+                <FieldLabel>English name</FieldLabel>
                 <Input
                   id="english-name"
                   value={englishName}
@@ -255,21 +237,7 @@ function RouteComponent() {
                 </FieldDescription>
               </Field>
               <Field>
-                <div className="flex justify-between">
-                  <FieldLabel>Original name</FieldLabel>
-                  {textAction === 'edit' && (
-                    <Button
-                      variant="ghost"
-                      className="bg-transparent"
-                      title="Reset to original"
-                      onClick={() => {
-                        setOriginalName(textData?.name?.original)
-                      }}
-                    >
-                      <RotateCcw />
-                    </Button>
-                  )}
-                </div>
+                <FieldLabel>Original name</FieldLabel>
                 <Input
                   id="original-name"
                   value={originalName}
@@ -299,7 +267,17 @@ function RouteComponent() {
             </FieldDescription>
             <FieldGroup>
               <Field className="border-1 p-5 rounded-md">
-                <FieldLabel>Date of creation</FieldLabel>
+                <CustomFieldHeading
+                  heading="Date of creation"
+                  headingType="label"
+                  textAction={textAction}
+                  onReset={() => {
+                    setCreationDate(textData?.creation_date)
+                    updateSessionData(sessionId, {
+                      creation_date: textData?.creation_date,
+                    })
+                  }}
+                />
                 <Textarea
                   id="description-source"
                   className="h-auto"
@@ -319,7 +297,21 @@ function RouteComponent() {
                 </FieldDescription>
               </Field>
               <Field className="border-1 p-5 rounded-md">
-                <FieldLabel>Description</FieldLabel>
+                <CustomFieldHeading
+                  heading="Description"
+                  headingType="label"
+                  textAction={textAction}
+                  onReset={() => {
+                    setDescription(textData?.description?.content)
+                    setDescriptionSource(textData?.description?.source_name)
+                    setDescriptionLink(textData?.description?.source_link)
+                    updateSessionData(sessionId, {
+                      description_content: textData?.description?.content,
+                      description_source: textData?.description?.source_name,
+                      description_link: textData?.description?.source_link,
+                    })
+                  }}
+                />
                 <FieldLabel className="text-sm text-muted-foreground">
                   Content
                 </FieldLabel>
@@ -375,7 +367,19 @@ function RouteComponent() {
                 </FieldDescription>
               </Field>
               <Field className="border-1 p-5 rounded-md">
-                <FieldLabel>Text structure</FieldLabel>
+                <CustomFieldHeading
+                  heading="Text structure"
+                  headingType="label"
+                  textAction={textAction}
+                  onReset={() => {
+                    setNumSections(textData?.num_sections)
+                    setNumChapters(textData?.num_chapters)
+                    updateSessionData(sessionId, {
+                      num_sections: textData?.num_sections,
+                      num_chapters: textData?.num_chapters,
+                    })
+                  }}
+                />
 
                 <FieldLabel className="text-sm text-muted-foreground">
                   Number of sections
@@ -412,7 +416,9 @@ function RouteComponent() {
                   placeholder="e.g. 81"
                   required
                 />
-                <FieldDescription>Total number of chapters.</FieldDescription>
+                <FieldDescription>
+                  Total number of chapters (biggest unit under 'section').
+                </FieldDescription>
               </Field>
             </FieldGroup>
           </FieldGroup>
@@ -421,8 +427,8 @@ function RouteComponent() {
       <FormNav
         backLink="/select_text"
         backTitle="Select Text"
-        nextLink="/text_info"
-        nextTitle="Text Info"
+        nextLink="/select_author"
+        nextTitle="Author Info"
       />
     </div>
   )

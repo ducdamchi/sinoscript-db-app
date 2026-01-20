@@ -41,16 +41,16 @@ export function ItemPicker({
                 {items.map((item) => (
                   <CommandItem key={item.id} onSelect={() => onSelect(item.id)}>
                     <span>{item.primary}</span>
-                    {item.secondary && (
+                    {/* {item.secondary && (
                       <CommandShortcut>{item.secondary}</CommandShortcut>
-                    )}
+                    )} */}
                   </CommandItem>
                 ))}
               </CommandGroup>
             )}
           </CommandList>
         </Command>
-        <FieldDescription>
+        <FieldDescription className="text-black">
           Selected {label.toLowerCase()}:{' '}
           {items.find((item) => item.id === selectedId)?.primary || 'none.'}
         </FieldDescription>

@@ -10,9 +10,7 @@ interface FormNavProps {
   nextLink: string
   backTitle: string
   nextTitle: string
-
-  // noNext: boolean
-  // noBack: boolean
+  disableNext?: boolean // Add this prop
 }
 
 export default function FormNav({
@@ -20,6 +18,7 @@ export default function FormNav({
   nextLink,
   backTitle,
   nextTitle,
+  disableNext = false, // Default to false
 }: FormNavProps) {
   const navigate = useNavigate()
   const { sessionId, textAction, authorAction, textId, authorId } =
@@ -75,6 +74,7 @@ export default function FormNav({
                 },
               })
             }}
+            disabled={disableNext} // Add disabled prop
           >
             {nextTitle}
             <ArrowRight />
